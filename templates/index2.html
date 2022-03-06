@@ -74,7 +74,23 @@
                 </div>
               </div>
             </div>
-
+{% for post in posts %}
+  <div class="col">
+    <div class="card shadow-sm">
+      <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="{{ post.user_image_url }}">
+      <div class="card-body">
+        <p class="card-text">{{ post.title }}</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-outline-secondary">詳細</button>
+          </div>
+          <small class="text-muted">状態：{{ post.status }}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+<!--
             <div class="col">
               <div class="card shadow-sm">
                 <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="images/kimono.jpg">
@@ -138,7 +154,7 @@
                 </div>
               </div>
             </div>
-    
+-->    
           </main>
     
     <footer class="text-muted py-5">

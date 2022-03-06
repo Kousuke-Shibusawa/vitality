@@ -3,6 +3,8 @@ from flask import render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import pytz
+import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ihin.db'
@@ -18,9 +20,11 @@ class Post(db.Model):
     user_image_url = db.Column(db.String(120))
     sreated_at = db.Column(db.DateTime, nullable=False, default=datetime.now(pytz.timezone('Asia/Tokyo')))
 
-@app.route("/")
-def hello_world():
-    return render_template('index2.html')
+@app.route("/", methods=['GET', 'POST'])
+def index():
+    if request.method == 'GET':
+        posts = Post.query.all()
+        return render_template('index2.html', posts=posts)
 
 @app.route('/create', methods=['GET', 'POST'])
 #@login_required
@@ -29,11 +33,12 @@ def create():
         title = request.form.get('title')
         category = request.form.get('category')
         status = request.form.get('status')
+        username = request.form.get('username')
         f = request.files['image']
         filepath = 'static/images/' + secure_filename(f.filename)
         f.save(filepath)
         filepath = '/' + filepath
-        post = Post(title=title, category=category, status=status, user_image_url=filepath)
+        post = Post(title=title, category=category, status=status, username=username, user_image_url=filepath)
         db.session.add(post)
         db.session.commit()
         return redirect('/')
