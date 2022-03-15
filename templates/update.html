@@ -25,7 +25,7 @@
             <img src="{{ url_for('static', filename='images/ouchilogo.png')}}" width="30" height="30">
             <strong>思い出・持ち物リスト</strong>
           </a>
-          <button onclick="location.href='/logout'">ログアウト</button>
+          <button>ログアウト</button>
         </div>
       </div>
     </header>
@@ -34,27 +34,28 @@
         <h1>新規登録</h1>
         <form method="POST" enctype="multipart/form-data">
             <label for="title">品名</label>
-            <input type="text" name="title"><br>
+            <input type="text" name="title" value={{ post.title }}><br>
+            <label for="category">種類</label>
+            <input type="text" name="category" value={{ post.category }}><br>
             <label for="username">持主</label>
-            <input type="text" name="username"><br>
+            <input type="text" name="username" value={{ post.username }}><br>
             <label for="status">状態</label>
-            <select name="status" size="1">
+            <select name="status" size="1" value={{ post.status }}>
                 <option value="自宅保管">自宅保管</option>
                 <option value="倉庫保管">倉庫保管</option>
                 <option value="処分予定">処分予定</option>
                 <option value="処分済み">処分済み</option>
                 <option value="その他">その他</option>
                 </select><br>
-                <label for="category" size="80">詳細</label>
-                <input type="text" name="category"><br>
-            <label for="image">画像</label>
-            <input type="file" accept=".png, .jpg, .jpeg, .png , .bmp, .gif" name="image"><br><br>
-            <input type="submit" value="新規登録">
- <!--            <input type="file" onchange="onChangeFileInput(this)">
-            <div>
-            <img id="thumbnail" accept="image/*" src="/img/icon_add.png">
-            </div>
+<!--  
+            <label for="detail">詳細</label>
+            <input type="text" name="detail" value={{ post.detail }}><br>
 -->
+            <label for="image">画像</label>
+            <input type="file" accept=".png, .jpg, .jpeg, .png , .bmp, .gif" name="image" value={{post.user_image_url}}>
+            <br>現在の画像
+            <img width="100" height="100" src="{{ post.user_image_url }}"><br><br>
+            <input type="submit" value="新規登録">
         </form>  
     </main>
     
